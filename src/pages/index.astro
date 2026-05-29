@@ -1,0 +1,25 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { Image } from 'astro:assets';
+
+import exampleimg from '../assets/images/favicon.svg'
+import '../styles/global.css';  
+---
+
+<BaseLayout 
+  title="Home Page" 
+  description="Welcome to my lightning fast website built with Astro."
+  image="/images/home-og.jpg"
+>
+  <main>
+    <h1 class="text-center" >Welcome to my new site!</h1>
+	<Image 
+        src={exampleimg} 
+        alt="Gallery submission"
+		priority
+		fit="'contain' | 'cover' | 'fill' | 'none' | 'scale-down'"
+		position='center or other css options'
+      />
+  </main>
+</BaseLayout>
+

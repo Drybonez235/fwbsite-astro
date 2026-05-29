@@ -1,0 +1,28 @@
+---
+// src/pages/blog/[slug].astro
+import { getCollection, render } from 'astro:content'; // 1. Use 'render' instead of entry.render()
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+export async function getStaticPaths() {
+  const blogEntries = await getCollection('blog');
+  return blogEntries.map(entry => ({
+    // 2. Change entry.slug to entry.id
+    params: { slug: entry.id }, props: { entry }, 
+  }));
+}
+
+const { entry } = Astro.props;
+// 3. New way to compile markdown content in Astro v6+
+const { Content } = await render(entry); 
+---
+
+<BaseLayout 
+  title={entry.data.title} 
+  description={entry.data.description} 
+  image={entry.data.image.src}
+>
+  <article>
+    <h1>{entry.data.title}</h1>
+    <Content />
+  </article>
+</BaseLayout>
